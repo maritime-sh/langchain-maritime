@@ -1,0 +1,73 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "langchain-maritime"
+version = "0.1.0"
+description = "Maritime sandboxes for Deep Agents: run every tool on a real cloud computer."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Maritime", email = "contact@maritime.sh" }]
+requires-python = ">=3.11,<4.0"
+keywords = ["langchain", "deepagents", "deep agents", "sandbox", "maritime", "cloud computer", "ai agents"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Typing :: Typed",
+]
+dependencies = [
+    "deepagents>=0.7.34,<0.8.0",
+    "maritime>=0.11.0,<0.12.0",
+]
+
+[project.entry-points."deepagents_code.sandbox_providers"]
+maritime = "langchain_maritime.dcode:MaritimeProvider"
+
+[project.urls]
+Homepage = "https://maritime.sh"
+Documentation = "https://maritime.sh/docs"
+Repository = "https://github.com/maritime-sh/langchain-maritime"
+Issues = "https://github.com/maritime-sh/langchain-maritime/issues"
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "pytest-asyncio>=0.24",
+    "langchain-tests>=1.1.9",
+    "deepagents-code>=0.2.5; python_version >= '3.14'",
+    "langchain-openai>=1.0",
+    "ruff>=0.6",
+    "mypy>=1.11",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["langchain_maritime"]
+
+[tool.hatch.build.targets.sdist]
+exclude = ["assets", ".github", "uv.lock"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+markers = ["live: runs against a real Maritime account (needs MARITIME_API_KEY)"]
+addopts = "-m 'not live'"
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
