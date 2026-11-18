@@ -9,7 +9,7 @@ from __future__ import annotations
 import pytest
 
 # langchain-tests 1.1.9 expects glob() to return relative paths and write() to
-# refuse an existing file. deepagents 0.7.34's BaseSandbox returns absolute paths
+# refuse an existing file. deepagents 0.7.x's BaseSandbox returns absolute paths
 # and overwrites. A plain local BaseSandbox with no Maritime code fails these
 # exactly the same way.
 UPSTREAM_MISMATCH = {
@@ -36,7 +36,7 @@ def pytest_collection_modifyitems(items: list[pytest.Item]) -> None:
             continue
         if name in UPSTREAM_MISMATCH:
             item.add_marker(
-                pytest.mark.xfail(strict=True, reason="langchain-tests 1.1.9 vs deepagents 0.7.34")
+                pytest.mark.xfail(strict=True, reason="langchain-tests 1.1.9 vs deepagents 0.7.x")
             )
         elif name in NO_PYTHON_ALIAS:
             item.add_marker(pytest.mark.xfail(strict=True, reason="the base image has python3 but no python"))

@@ -133,9 +133,9 @@ The [Deep Agents standard sandbox suite](https://github.com/langchain-ai/langcha
 MARITIME_API_KEY=mk_... uv run pytest -m live
 ```
 
-On 2026-11-08, with `deepagents` 0.7.34 and `langchain-tests` 1.1.9, 77 of the 86 standard tests pass. The other 9 are marked as expected failures in [`conftest.py`](tests/integration_tests/conftest.py), each with its reason:
+On 2026-11-17, with `deepagents` 0.7.39, `maritime` 0.12 and `langchain-tests` 1.1.9, 77 of the 86 standard tests pass. The other 9 are marked as expected failures in [`conftest.py`](tests/integration_tests/conftest.py), each with its reason:
 
-- 7 glob and write tests: `langchain-tests` 1.1.9 expects relative glob paths and a `write` that refuses existing files, while `deepagents` 0.7.34 returns absolute paths and overwrites. A plain local `BaseSandbox` fails them the same way.
+- 7 glob and write tests: `langchain-tests` 1.1.9 expects relative glob paths and a `write` that refuses existing files, while `deepagents` 0.7.x returns absolute paths and overwrites. A plain local `BaseSandbox` fails them the same way.
 - 2 large-output tests call `python`, and the Maritime base image ships `python3` only.
 
 The live tests also cover the Deep Agents Code provider: create, reconnect by id, delete, and a new sandbox from a saved snapshot.
@@ -153,7 +153,7 @@ uv run pytest
 | Python | 3.11 to 3.14 |
 | `deepagents` | 0.7.34 and later 0.7.x |
 | `deepagents-code` (optional) | 0.2.5 and later, on Python 3.14 |
-| `maritime` | 0.11.x |
+| `maritime` | 0.11.x and 0.12.x |
 
 ## License
 
